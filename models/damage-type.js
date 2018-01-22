@@ -11,4 +11,20 @@ for(let category in types)
     });
 }
 
+DamageType.isValidType = type => type.includes('/');
+
+DamageType.Category = type => {
+    if(!DamageType.isValidType(type))
+        throw new Error(`Parameter 'type' is not a valid damage type: ${type}`);
+
+    return type.split('/', 2)[0];
+};
+
+DamageType.SubCategory = type => {
+    if(!DamageType.isValidType(type))
+        throw new Error(`Parameter 'type' is not a valid damage type: ${type}`);
+
+    return type.split('/', 2)[1];
+}
+
 export default DamageType;
