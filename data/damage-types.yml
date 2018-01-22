@@ -4,7 +4,7 @@ physical:
     - blunt
 
 magical :
-    - magic
+    - arcane
     - poison
 
 elemental :

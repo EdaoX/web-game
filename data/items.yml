@@ -37,7 +37,7 @@ drain_wand :
     baseValue : 350
     skills :
         damage :
-            type : magic
+            type : arcane
             damage : 1
             target : ENEMY
         heal :

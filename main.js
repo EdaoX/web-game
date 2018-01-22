@@ -104,7 +104,3 @@ else if(player1.isDead)
     console.log(`${player2.name} won!`);
 else
     console.log(`${player1.name} won!`);
-
-// import YAML from 'yamljs';
-// const types = YAML.load('data/damage-types.yml');
-import DamageType from './models/damage-type'
