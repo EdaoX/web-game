@@ -1,0 +1,63 @@
+### WEAPONS ###
+
+long_sword :
+    type : weapon
+    name : Long Sword
+    description: Not very impressive, but still hurts
+    img : swd_01.png
+    rarity : 0
+    baseValue : 100
+    skills :
+        damage :
+            damage : 2
+            target : ENEMY
+poison_dart :
+    type : weapon
+    name : Poison Dart
+    description : Do NOT inhale!
+    img : drt_01.png
+    baseValue : 130
+    skills :
+        damage :
+            damage : 1
+            target : ENEMY
+        status :
+            poison :
+                damage : 1
+                duration : 2
+                target : ENEMY
+drain_wand :
+    type : weapon
+    name : Drain Wand
+    description: Sucks the life out of enemies!
+    img : wnd_01.png
+    rarity : 1
+    baseValue : 350
+    skills :
+        damage :
+            damage : 1
+            target : ENEMY
+        heal :
+            healing : 1
+            target : SELF
+
+### ARMORS ###
+
+### ACCESSORIES ###
+
+healing_circlet :
+    type : accessory
+    name : Healing Circlet
+    description : Looks sacred, but it's actually market junk
+    img : crclt_01.png
+    rarity : 0
+    baseValue : 130
+    skills :
+        heal :
+            healing : 1
+            target : SELF
+        status :
+            regen :
+                healing : 1
+                duration : 2
+                target : SELF
