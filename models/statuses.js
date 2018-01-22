@@ -1,3 +1,5 @@
+import DamageType from './damage-type';
+
 const doNothing = () => {};
 
 const defaults = {
@@ -21,7 +23,7 @@ export const poison = ( context, parameters ) => {
             console.log(`${entity.name} is poisoned!`);
         },
         onTurnEnd : () => {
-            entity.damage(damage);
+            entity.damage(damage, DamageType.POISON);
             // TODO - Redo: Stub
 
             if(duration <= 0){

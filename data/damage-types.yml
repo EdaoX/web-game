@@ -1,0 +1,14 @@
+physical:
+    - slash
+    - piercing
+    - blunt
+
+magical :
+    - magic
+    - poison
+
+elemental :
+    - fire
+    - ice
+    - air
+    - electric

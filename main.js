@@ -28,7 +28,10 @@ const createPlayer = ( name, maxHP = 1 ) =>
     player.isDead = false;
 
     player.toString = () => `${player.name}: ${player.hp} HP`;
-    player.damage = ( damage ) => {
+    player.damage = ( damage, type ) => {
+        // TODO - Use Type
+        console.log(`DAMAGE TYPE: ${type}`)
+
         player.hp -= Math.abs(damage);
         player.isDead = player.hp <= 0;
     };
@@ -101,3 +104,7 @@ else if(player1.isDead)
     console.log(`${player2.name} won!`);
 else
     console.log(`${player1.name} won!`);
+
+// import YAML from 'yamljs';
+// const types = YAML.load('data/damage-types.yml');
+import DamageType from './models/damage-type'

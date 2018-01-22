@@ -10,6 +10,7 @@ long_sword :
     skills :
         damage :
             damage : 2
+            type : slash
             target : ENEMY
 poison_dart :
     type : weapon
@@ -20,6 +21,7 @@ poison_dart :
     skills :
         damage :
             damage : 1
+            type : piercing
             target : ENEMY
         status :
             poison :
@@ -35,6 +37,7 @@ drain_wand :
     baseValue : 350
     skills :
         damage :
+            type : magic
             damage : 1
             target : ENEMY
         heal :
