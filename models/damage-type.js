@@ -1,4 +1,5 @@
 import YAML from 'yamljs';
+import curry from 'lodash';
 const types = YAML.load('data/damage-types.yml');
 
 const DamageType = {};
@@ -9,7 +10,7 @@ DamageType.decode = ( type ) => {
 
     const [ category, subcategory ] = type.split('/', 2);
     return { category, subcategory };
-}
+};
 
 DamageType.encode = ( category, subcategory ) => `${category}/${subcategory}`;
 
@@ -31,19 +32,20 @@ DamageType.getSubCategory = type => {
     const { subcategory } = DamageType.decode(type);
 
     return subcategory;
-}
+};
 
 DamageType.isType = (type, test) => {
     const typeObj = DamageType.decode(type);
     const testObj = DamageType.decode(test);
-    
+
     if(typeObj.category !== testObj.category)
         return false;
 
     return typeObj.subcategory === '*' || typeObj.subcategory === testObj.subcategory;
 
-}
+};
 
+// Initialize Constants
 const normalizedTypes = {};
 for(let category in types)
 {
