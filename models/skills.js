@@ -1,10 +1,11 @@
 import * as statuses from './statuses';
 import Log from '../utilities/logger';
+import DamageType from './damage-type';
 
 export const damage = ( context, parameters ) => {
-    const { damage, target } = parameters;
+    const { damage, target, type } = parameters;
     const entity = context.getTarget(target);
-    entity.damage(damage);
+    entity.damage(damage, DamageType[type.toUpperCase()]);
     console.log(`${entity.name} lost ${damage} HP, ${entity.hp} HP left`);
 };
 

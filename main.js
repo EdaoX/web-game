@@ -28,7 +28,10 @@ const createPlayer = ( name, maxHP = 1 ) =>
     player.isDead = false;
 
     player.toString = () => `${player.name}: ${player.hp} HP`;
-    player.damage = ( damage ) => {
+    player.damage = ( damage, type ) => {
+        // TODO - Use Type
+        console.log(`DAMAGE TYPE: ${type}`)
+
         player.hp -= Math.abs(damage);
         player.isDead = player.hp <= 0;
     };

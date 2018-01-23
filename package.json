@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "babel-node --inspect main.js"
+    "start": "babel-node --inspect main.js",
+    "sandbox": "babel-node --inspect sandbox.js"
   },
   "keywords": [],
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "lodash": "^4.17.4",
     "yamljs": "^0.3.0"
   }
 }
