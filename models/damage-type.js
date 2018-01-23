@@ -1,5 +1,5 @@
 import YAML from 'yamljs';
-import curry from 'lodash';
+import { curry } from 'lodash';
 const types = YAML.load('data/damage-types.yml');
 
 const DamageType = {};
@@ -44,6 +44,8 @@ DamageType.isType = (type, test) => {
     return typeObj.subcategory === '*' || typeObj.subcategory === testObj.subcategory;
 
 };
+
+DamageType.isType = curry(DamageType.isType);
 
 // Initialize Constants
 const normalizedTypes = {};
