@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "babel-node --inspect main.js"
+    "start": "babel-node --inspect main.js",
+    "sandbox": "babel-node --inspect sandbox.js"
   },
   "keywords": [],
   "author": "",
