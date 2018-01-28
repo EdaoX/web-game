@@ -59,8 +59,11 @@ healing_circlet :
         heal :
             healing : 1
             target : SELF
+            resurrect : false
+            overheal : false
         status :
             regen :
                 healing : 1
                 duration : 2
                 target : SELF
+                overheal : false
