@@ -2,36 +2,88 @@ import * as statuses from './statuses';
 import Log from '../utilities/logger';
 import DamageType from './damage-type';
 
-export const damage = ( context, parameters ) => {
-    const { damage, target, type } = parameters;
-    const entity = context.getTarget(target);
-    entity.damage(damage, DamageType[type.toUpperCase()]);
-    console.log(`${entity.name} lost ${damage} HP, ${entity.hp} HP left`);
+const createAction = ( target, applyOn ) => {
+    return { target, applyOn };
 };
 
-export const heal = ( context, parameters ) => {
-    const { healing, target } = parameters;
-    const entity = context.getTarget(target);
-    entity.heal(healing);
-    console.log(`${entity.name} recovered ${healing} HP and now has ${entity.hp} HP`);
+const createActionSet = (...actions) => {
+    return [...actions];
+}
+
+export const damage = ({ damage, target, type }) => {
+
+    const effect = ( target, context ) => {
+
+        const modTarget = {...target};
+
+        // TODO - Delegate this to an engine for damageType calculations and more
+
+        // Use DamageType
+        const damageType = DamageType[type.toUpperCase()];
+        modTarget.hp -= Math.abs(damage);
+
+        console.log(`${modTarget.name} lost ${damage} HP, ${modTarget.hp} HP left`);
+
+        return modTarget;
+    }
+
+    return createActionSet(createAction( target, effect ));
 };
 
-export const status = ( context, appliedStatuses ) => {
-    Object.keys(appliedStatuses).forEach( statusId => {
+export const heal = ({ healing, target, resurrect, overheal }) => {
 
-        const parameters = appliedStatuses[statusId];
+    const effect = ( target, context ) => {
+
+        // TODO - Delegate this to an engine?
+
+        const modTarget = {...target};
+
+        if(modTarget.isDead() && !resurrect)
+            return modTarget;
+
+        let actualHealing = Math.abs(healing);
+
+        if(!overheal)
+            actualHealing = Math.min(actualHealing, modTarget.maxHP - modTarget.hp);
+
+        modTarget.hp += actualHealing;
+
+        console.log(`${modTarget.name} recovered ${actualHealing} HP and now has ${modTarget.hp} HP`);
+        return modTarget;
+    }
+
+    return createActionSet(createAction( target, effect ));
+
+};
+
+export const status = (appliedStatuses) => {
+
+    const actions = [];
+
+    for( const [ statusId, parameters ] of Object.entries(appliedStatuses))
+    {
         const { target } = parameters;
-        const statusFactory = statuses[statusId];
-        if(!statusFactory){
-            Log.w(`Couldn't find status '${statusId}'`);
-            return false;
+
+        const effect = ( target, context ) => {
+
+            const modTarget = {...target};
+
+            const createStatus = statuses[statusId];
+            if(!createStatus){
+                Log.w(`Couldn't find status '${statusId}'`);
+                return;
+            }
+            const status = createStatus( parameters );
+
+            modTarget.statusEffects = { ...modTarget.statusEffects, [statusId] : status };
+            status.onApply( modTarget );
+
+            return modTarget;
+
         }
-        const status = statusFactory( context, parameters );
-        const entity = context.getTarget(target);
 
-        // TODO - Check: placeholder
-        entity.statusEffects = { ...entity.statusEffects, [statusId] : status };
-        status.onApply();
+        actions.push(createAction( target, effect ));
+    }
 
-    });
+    return createActionSet(...actions);
 }
