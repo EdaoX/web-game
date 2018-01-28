@@ -11,16 +11,16 @@ const defaults = {
     skills : {}
 };
 
+const getNormalizeItemData = id => items[id] ? { id, ...defaults, ...items[id]} : false;
+
 const Item = ( id ) => {
 
-    const item = items[id];
-    if(!item)
-    {
-        Log.w(`Couldn't find name with id '${id}'`);
-        return false;
-    }
+    const item = getNormalizeItemData(id);
 
-    return Object.assign({ id }, defaults, item);
+    if(!item)
+        Log.w(`Couldn't find name with id '${id}'`);
+
+    return item;
 
 }
 
